@@ -7,8 +7,12 @@ function completarTarea(id) {
                 alert("Tarea completada!");
                 location.reload();  // Recarga la página para mostrar los cambios
             } else {
-                alert("Error al completar tarea.");
+                alert(data);  // Mostrar el mensaje de error devuelto por PHP
             }
+        })
+        .catch(error => {
+            console.error('Error en la solicitud:', error);
+            alert("Hubo un problema al completar la tarea.");
         });
 }
 
@@ -21,12 +25,11 @@ function eliminarTarea(id) {
                 alert("Tarea eliminada!");
                 location.reload();  // Recarga la página para mostrar los cambios
             } else {
-                alert("Error al eliminar tarea.");
+                alert(data);  // Mostrar el mensaje de error devuelto por PHP
             }
+        })
+        .catch(error => {
+            console.error('Error en la solicitud:', error);
+            alert("Hubo un problema al eliminar la tarea.");
         });
-}
-
-// Función para ver PDF (si la tarea tiene un archivo)
-function verPDF(id) {
-    window.open(`ver_pdf.php?id=${id}`, '_blank');
 }

@@ -24,8 +24,9 @@ conectar();
         <button type="submit">Agregar Tarea</button>
     </form>
 
-    <!-- Listado de tareas pendientes -->
+    
     <?php
+        // Obtener tareas pendientes
         $tareas_pendientes = $con->query("SELECT * FROM tareas WHERE completada = FALSE AND eliminado = FALSE ORDER BY fecha DESC");
 
         if ($tareas_pendientes->num_rows > 0) {
