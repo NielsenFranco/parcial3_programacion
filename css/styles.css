@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+.tarea {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    margin-left: 10px;
+    background-color: aqua;
+    border: 1px solid black;
+}
+
