@@ -14,7 +14,7 @@ conectar();
 </head>
 <body>
     <header>
-    <h1>Gestión de Tareas</h1>
+        <h1>Gestión de Tareas</h1>
     </header>
     <section class="main-content">
         <!-- Formulario para agregar tareas -->
@@ -26,26 +26,26 @@ conectar();
             <button type="submit">Agregar Tarea</button>
         </form>
 
-        
         <?php
             // Obtener tareas pendientes
             echo "<h2>Tareas Pendientes</h2>";
             $tareas_pendientes = $con->query("SELECT * FROM tareas WHERE completada = FALSE AND eliminado = FALSE ORDER BY fecha DESC");
-            if ($tareas_pendientes->num_rows > 0) {  
+            if ($tareas_pendientes->num_rows > 0) {
                 while ($tarea = $tareas_pendientes->fetch_assoc()) {
-                    echo "<div class='tarea' id='tarea_".$tarea['id']."'>";
+                    echo "<div class='tarea' id='tarea_" . $tarea['id'] . "'>";
                     echo "<p><strong>" . $tarea['nombre'] . "</strong> - " . $tarea['fecha'] . "</p>";
+                    echo "<button onclick='completarTarea(" . $tarea['id'] . ")'>Completar</button>";
+                    echo "<button onclick='eliminarTarea(" . $tarea['id'] . ")'>Eliminar</button>";
                     if ($tarea['archivo']) {
                         echo "<button onclick='verPDF(" . $tarea['id'] . ")'>Ver PDF</button>";
                     }
-                    echo "<button onclick='completarTarea(" . $tarea['id'] . ")'>Completar</button>";
-                    echo "<button onclick='eliminarTarea(" . $tarea['id'] . ")'>Eliminar</button>";
                     echo "</div>";
                 }
             } else {
                 echo "<p>No hay tareas pendientes.</p>";
             }
         ?>
+
         <?php
             // Obtener tareas completadas
             echo "<h2>Tareas Completadas</h2>";

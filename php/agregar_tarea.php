@@ -3,31 +3,57 @@ session_start();
 include("../includes/conexion.php");
 conectar();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+$response = [];
+
+if (isset($_POST['nombre'])) {
     $nombre = $_POST['nombre'];
     $archivo = $_FILES['archivo'];
+    $custom_name = isset($_POST['custom_name']) ? trim($_POST['custom_name']) : '';
 
+    if (!empty($archivo['name'])) {
+        $fileTmpPath = $archivo['tmp_name'];
+        $fileName = $archivo['name'];
+        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        
+        $fileName = !empty($custom_name) ? preg_replace('/[^a-zA-Z0-9_-]/', '_', $custom_name) . ".pdf" : md5(time() . $fileName) . ".pdf";
+        $uploadFileDir = '../tareas/';
+        $dest_path = $uploadFileDir . $fileName;
 
-    // Subir archivo si existe
-    $archivo_pdf = null;
-    if ($archivo['error'] == 0) {
-        $archivo_pdf = file_get_contents($archivo['tmp_name']);
-    }
-
-    // Insertar tarea en la base de datos
-    $stmt = $con->prepare("INSERT INTO tareas (nombre, archivo) VALUES (?, ?)");
-
-    $stmt->bind_param("sb", $nombre, $archivo_pdf);
-
-    if ($stmt->execute()) {
-        // Redirigir al index.php después de agregar la tarea
-        header('Location: ../index.php');
-        exit();
+        if (move_uploaded_file($fileTmpPath, $dest_path)) {
+            $stmt = $con->prepare("INSERT INTO tareas (nombre, archivo) VALUES (?, ?)");
+            $stmt->bind_param("ss", $nombre, $fileName);
+            if ($stmt->execute()) {
+                $response['success'] = true;
+                $response['message'] = "Tarea agregada con archivo.";
+            } else {
+                $response['success'] = false;
+                $response['message'] = "Error al guardar la tarea.";
+            }
+            $stmt->close();
+        } else {
+            $response['success'] = false;
+            $response['message'] = "Error al mover el archivo al servidor.";
+        }
     } else {
-        echo "Error al agregar tarea.";
+        $stmt = $con->prepare("INSERT INTO tareas (nombre) VALUES (?)");
+        $stmt->bind_param("s", $nombre);
+        if ($stmt->execute()) {
+            $response['success'] = true;
+            $response['message'] = "Tarea agregada sin archivo.";
+        } else {
+            $response['success'] = false;
+            $response['message'] = "Error al guardar la tarea.";
+        }
+        $stmt->close();
     }
 
-    $stmt->close();
     $con->close();
+} else {
+    $response['success'] = false;
+    $response['message'] = "Nombre de tarea no proporcionado.";
 }
+
+// Devuelve la respuesta como JSON
+header('Content-Type: application/json');
+echo json_encode($response);
 ?>
