@@ -7,7 +7,7 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
     // Verifica si la tarea existe y no está completada ni eliminada
-    $stmt = $con->prepare("SELECT * FROM tareas WHERE id = ? AND completada = FALSE AND eliminado = FALSE");
+    $stmt = $con->prepare("SELECT id FROM tareas WHERE id = ? AND completada = FALSE AND eliminado = FALSE");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
