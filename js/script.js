@@ -13,6 +13,7 @@ function completarTarea(id) {
 }
 
 
+
 function eliminarTarea(id) {
     fetch(`php/eliminar_tarea.php?id=${id}`)
         .then(response => response.text())
