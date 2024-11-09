@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-11-2024 a las 22:34:02
+-- Tiempo de generación: 09-11-2024 a las 02:48:24
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -33,20 +33,15 @@ CREATE TABLE `tareas` (
   `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
   `completada` tinyint(1) DEFAULT 0,
   `eliminado` tinyint(1) DEFAULT 0,
-  `archivo_pdf` longblob DEFAULT NULL
+  `archivo` longblob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Estructura de tabla para la tabla `tareas_completadas`
+-- Volcado de datos para la tabla `tareas`
 --
 
-CREATE TABLE `tareas_completadas` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(20) NOT NULL,
-  `fecha_completado` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `tareas` (`id`, `nombre`, `fecha`, `completada`, `eliminado`, `archivo`) VALUES
+(5, 'Franco', '2024-11-09 01:35:15', 1, 0, '');
 
 --
 -- Índices para tablas volcadas
@@ -59,12 +54,6 @@ ALTER TABLE `tareas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `tareas_completadas`
---
-ALTER TABLE `tareas_completadas`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -72,7 +61,7 @@ ALTER TABLE `tareas_completadas`
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,35 +1,27 @@
-// Función para completar tarea usando AJAX
 function completarTarea(id) {
-    fetch(`completar_tarea.php?id=${id}`)
+    fetch(`php/completar_tarea.php?id=${id}`)
         .then(response => response.text())
         .then(data => {
-            if (data === "success") {
-                alert("Tarea completada!");
-                location.reload();  // Recarga la página para mostrar los cambios
+            if (data === 'success') {
+                alert("Tarea completada");
+                location.reload();
             } else {
-                alert(data);  // Mostrar el mensaje de error devuelto por PHP
+                alert(data);  // Muestra el mensaje de error recibido desde PHP
             }
         })
-        .catch(error => {
-            console.error('Error en la solicitud:', error);
-            alert("Hubo un problema al completar la tarea.");
-        });
+        .catch(error => alert("Error en la solicitud: " + error));
 }
 
-// Función para eliminar tarea usando AJAX (borrado lógico)
 function eliminarTarea(id) {
-    fetch(`eliminar_tarea.php?id=${id}`)
+    fetch(`php/eliminar_tarea.php?id=${id}`)
         .then(response => response.text())
         .then(data => {
-            if (data === "success") {
-                alert("Tarea eliminada!");
-                location.reload();  // Recarga la página para mostrar los cambios
+            if (data === 'success') {
+                alert("Tarea eliminada");
+                location.reload();
             } else {
-                alert(data);  // Mostrar el mensaje de error devuelto por PHP
+                alert(data);  // Muestra el mensaje de error recibido desde PHP
             }
         })
-        .catch(error => {
-            console.error('Error en la solicitud:', error);
-            alert("Hubo un problema al eliminar la tarea.");
-        });
+        .catch(error => alert("Error en la solicitud: " + error));
 }

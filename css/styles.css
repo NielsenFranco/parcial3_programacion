@@ -1,9 +1,34 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: #504b4b;
+}
+h1{
+    padding-top: 3%;
+    color: #c9da48;
+}
+header{
+    text-align: center;
+    width: 100%;
+    background: url(../img/header.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 9em;
+    position: relative; /* Necesario para pseudo-elementos */
+    margin-top: 0; /* Ajusta este margen si es necesario para que el header no se superponga */
+}
+form {
+    padding-top: 2%;
+}
+.main-content {
+    background-color: #fff;
+    padding: 2%;
+    margin: 1%;
 }
 
-form {
-    margin-bottom: 20px;
+.main-content h2 {
+    color: #4abdcc;
+    margin-bottom:1%;
 }
 
 .tarea {
@@ -14,9 +39,19 @@ form {
     justify-content: space-between;
 }
 
-button {
-    margin-left: 10px;
-    background-color: aqua;
-    border: 1px solid black;
+button[type="submit"] {
+    width: auto;
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s;
 }
 
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
